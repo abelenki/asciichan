@@ -12,8 +12,9 @@ templates_dir = os.path.join(os.path.dirname(__file__), 'templates')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(templates_dir), autoescape = True)
 
 class Art(db.Model):
-    title = db.StringProperty(Required=True)
-    art = db.TextProperty(Required=True)
+    title = db.StringProperty(required=True)
+    art = db.TextProperty(required=True)
+    created = db.DateTimeProperty(auto_now=True)
 
 class BaseHandler(webapp2.RequestHandler):
     def render_str(self, template, **params):
@@ -26,13 +27,14 @@ class BaseHandler(webapp2.RequestHandler):
 
 class AsciiChanHandler(BaseHandler):
     def get(self):
-        self.render("main-page.html")
+        self.arts = db.GqlQuery('select * from Art order by created desc')
+        self.render("main-page.html", arts = self.arts)
     
     def post(self):
         self.title = self.request.get('title')
         self.art_text = self.request.get('art')
         
-        if title and art:
+        if self.title and self.art_text:
             art = Art(title = self.title, art = self.art_text)
             art.put()
             self.redirect('/')
