@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h2>Submit an Art (Be Creative)</h2>
+    <form method="post">
+        <table>
+            <tr>
+                <td>
+                    <label for="title">Title</label>
+                </td>
+                <td>
+                    <input type="text" id="title" name="title" value="{{title}}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="art">Art</label>
+                </td>
+                <td>
+                    <textarea name="art" id="art" value="{{art}}"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="submit" value="Show off" />
+                </td>
+            </tr>
+        </table>
+    </form>
+    <div>{{error}}</div>
+{% endblock %}
