@@ -48,3 +48,8 @@ hr {
     margin: 0;
     font-size: 17px;
 }
+.map{
+    position: absolute;
+    right: 0;
+    top: 112px;
+}
